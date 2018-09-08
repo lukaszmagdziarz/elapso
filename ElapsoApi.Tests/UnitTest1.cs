@@ -1,6 +1,7 @@
+﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Tests
+namespace ElapsoApi.Tests
 {
     [TestClass]
     public class UnitTest1
