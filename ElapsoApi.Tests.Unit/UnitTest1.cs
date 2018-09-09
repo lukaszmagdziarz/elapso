@@ -1,14 +1,19 @@
+using NUnit.Framework;
 using System;
-using Xunit;
 
 namespace ElapsoApi.Tests.Unit
 {
-    public class UnitTest1
+    [TestFixture]
+    public class ElapsoTests
     {
-        [Fact]
+        [Test]
         public void Test1()
         {
+            int x;
 
+            x = 5;
+
+            Assert.That(x > 0);
         }
     }
 }
