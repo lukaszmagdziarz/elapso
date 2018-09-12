@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElapsoApi", "ElapsoApi\ElapsoApi.csproj", "{31EFED98-413D-41D6-A0A5-8CF21EA8F6C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElapsoApp", "ElapsoApp\ElapsoApp.csproj", "{2E816023-DAF4-4FC2-9A15-D585113C2AE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElapsoApi.Tests.Unit", "ElapsoApi.Tests.Unit\ElapsoApi.Tests.Unit.csproj", "{230DAFD5-324D-46AC-8B96-C84E98EA7304}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElapsoApp.Tests.Unit", "ElapsoApp.Tests.Unit\ElapsoApp.Tests.Unit.csproj", "{473AD273-9262-4F88-A1F6-5C450529EBA4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{31EFED98-413D-41D6-A0A5-8CF21EA8F6C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{31EFED98-413D-41D6-A0A5-8CF21EA8F6C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{31EFED98-413D-41D6-A0A5-8CF21EA8F6C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{31EFED98-413D-41D6-A0A5-8CF21EA8F6C3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{230DAFD5-324D-46AC-8B96-C84E98EA7304}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{230DAFD5-324D-46AC-8B96-C84E98EA7304}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{230DAFD5-324D-46AC-8B96-C84E98EA7304}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{230DAFD5-324D-46AC-8B96-C84E98EA7304}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E816023-DAF4-4FC2-9A15-D585113C2AE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E816023-DAF4-4FC2-9A15-D585113C2AE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E816023-DAF4-4FC2-9A15-D585113C2AE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E816023-DAF4-4FC2-9A15-D585113C2AE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{473AD273-9262-4F88-A1F6-5C450529EBA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{473AD273-9262-4F88-A1F6-5C450529EBA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{473AD273-9262-4F88-A1F6-5C450529EBA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{473AD273-9262-4F88-A1F6-5C450529EBA4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
