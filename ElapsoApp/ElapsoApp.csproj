@@ -168,12 +168,19 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\CountersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Comment.cs">
+      <DependentUpon>ElapsoDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Counter.cs">
+      <DependentUpon>ElapsoDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ElapsoBaseClass.cs">
       <DependentUpon>ElapsoDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ElapsoDataModel.Context.cs">
@@ -190,6 +197,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ElapsoDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Reminder.cs">
+      <DependentUpon>ElapsoDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -255,6 +265,11 @@
     <Content Include="Views\Counters\Details.cshtml" />
     <Content Include="Views\Counters\Edit.cshtml" />
     <Content Include="Views\Counters\Index.cshtml" />
+    <Content Include="Views\Comments\Create.cshtml" />
+    <Content Include="Views\Comments\Delete.cshtml" />
+    <Content Include="Views\Comments\Details.cshtml" />
+    <Content Include="Views\Comments\Edit.cshtml" />
+    <Content Include="Views\Comments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

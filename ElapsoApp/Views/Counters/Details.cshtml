@@ -52,8 +52,103 @@
         </dd>
 
     </dl>
+
+    <h4>@Model.Comment.Count comments </h4>
+    <table class="table">
+
+        <tr>
+            <td colspan="4">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-10">
+
+                            <input type="text" id="body" name="body" placeholder="Enter your comment here..." class="form-control" />
+
+                            <div class="form-group">
+                                <button id="clear" type="reset" class="btn btn-default">Clear</button>
+                                <button id="addComment" type="submit" class="btn btn-danger">Add comment</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+
+        @if (Model.Comment.Any())
+        {
+
+            foreach (var comment in Model.Comment)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => comment.Body)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => comment.CreationDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => comment.CreatedBy)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = comment.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = comment.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = comment.Id })
+                    </td>
+                </tr>
+            }
+        }
+
+    </table>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+
+
+@section scripts{
+    <script>
+
+        //After Click Add Comment Button Pass All Data View To Controller For Save Database
+        function addComment(data) {
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/Comments/Create",
+                data: data,
+                success: function (result) {
+                    alert(result);
+                    location.reload();
+                },
+                error: function () {
+                    console.log(data);
+                    alert("Error!")
+                }
+            });
+        }
+        //Collect Multiple Order List For Pass To Controller
+        $("#addComment").click(function (e) {
+            e.preventDefault();
+
+            
+
+            //Id,Body,CounterId,CreatedBy,CreationDate
+            var data = JSON.stringify({
+                Id:100,
+                Body: $("#body").val(),
+                CounterId: @Model.Id,
+                CreatedBy: 1,
+                CreationDate: new Date().toJSON()
+            });
+
+            $.when(addComment(data)).then(function (response) {
+                console.log(response);
+            }).fail(function (err) {
+                console.log(err);
+            });
+        });
+    </script>
+}

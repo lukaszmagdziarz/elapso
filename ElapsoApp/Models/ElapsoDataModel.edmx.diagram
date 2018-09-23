@@ -5,7 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="70f4f0ce4393400cb912490938d1097b" Name="Diagram1" >
-        <EntityTypeShape EntityType="ElapsoDataModel.Counter" Width="1.5" PointX="3" PointY="0.625" />
+        <EntityTypeShape EntityType="ElapsoDataModel.Counter" Width="1.5" PointX="2.75" PointY="1.375" />
+        <EntityTypeShape EntityType="ElapsoDataModel.ElapsoBaseClass" Width="1.5" PointX="4.875" PointY="0.5" />
+        <EntityTypeShape EntityType="ElapsoDataModel.Comment" Width="1.5" PointX="6.625" PointY="2.25" />
+        <InheritanceConnector EntityType="ElapsoDataModel.Comment" />
+        <AssociationConnector Association="ElapsoDataModel.CounterComment" />
+        <EntityTypeShape EntityType="ElapsoDataModel.Reminder" Width="1.5" PointX="1" PointY="3.5" IsExpanded="true" />
+        <InheritanceConnector EntityType="ElapsoDataModel.Reminder" />
+        <AssociationConnector Association="ElapsoDataModel.CounterReminder" />
+        <InheritanceConnector EntityType="ElapsoDataModel.Counter" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

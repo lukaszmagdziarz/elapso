@@ -25,6 +25,10 @@ namespace ElapsoApp.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Counter> CounterSet { get; set; }
+        public virtual DbSet<ElapsoBaseClass> ElapsoBaseClassSet { get; set; }
+
+        public System.Data.Entity.DbSet<ElapsoApp.Models.Counter> Counters { get; set; }
+
+        public System.Data.Entity.DbSet<ElapsoApp.Models.Comment> Comments { get; set; }
     }
 }

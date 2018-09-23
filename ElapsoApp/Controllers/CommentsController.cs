@@ -11,134 +11,112 @@ using ElapsoApp.Models;
 
 namespace ElapsoApp.Controllers
 {
-    public class CountersController : Controller
+    public class CommentsController : Controller
     {
         private ElapsoContext db = new ElapsoContext();
 
-        // GET: Counters
+        // GET: Comments
         public async Task<ActionResult> Index()
         {
-            return View(await db.Counters.ToListAsync());
+            var comments = db.Comments.Include(c => c.Counter);
+            return View(await comments.ToListAsync());
         }
 
-        // GET: Counters/Details/5
+        // GET: Comments/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Counter counter = await db.Counters.FindAsync(id);
-            if (counter == null)
+            Comment comment = await db.Comments.FindAsync(id);
+            if (comment == null)
             {
                 return HttpNotFound();
             }
-            return View(counter);
+            return View(comment);
         }
 
-        // GET: Counters/Create
+        // GET: Comments/Create
         public ActionResult Create()
         {
+            ViewBag.CounterId = new SelectList(db.Counters, "Id", "Title");
             return View();
         }
 
-        // GET: Counters/CreateComment
-        public async Task<ActionResult> CreateComment(int? counterId, string body)
-        {
-            if (counterId == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Counter counter = await db.Counters.FindAsync(counterId);
-            if (counter == null)
-            {
-                return HttpNotFound();
-            }
-
-            Comment c = new Comment()
-            {
-                CounterId = counterId.Value,
-                Body = body,
-                CreatedBy = 1,
-                CreationDate = DateTime.Now
-            };
-
-            counter.Comment.Add(c);
-            db.SaveChanges();
-
-            return View();
-        }
-
-        // POST: Counters/Create
+        // POST: Comments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Title,Description,Date,CreatedBy,CreationDate")] Counter counter)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Body,CounterId,CreatedBy,CreationDate")] Comment comment)
         {
             if (ModelState.IsValid)
             {
-                db.Counters.Add(counter);
+                db.Comments.Add(comment);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            return View(counter);
+            ViewBag.CounterId = new SelectList(db.Counters, "Id", "Title", comment.CounterId);
+            return View(comment);
         }
 
-        // GET: Counters/Edit/5
+        // GET: Comments/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Counter counter = await db.Counters.FindAsync(id);
-            if (counter == null)
+            Comment comment = await db.Comments.FindAsync(id);
+            if (comment == null)
             {
                 return HttpNotFound();
             }
-            return View(counter);
+            ViewBag.CounterId = new SelectList(db.Counters, "Id", "Title", comment.CounterId);
+            return View(comment);
         }
 
-        // POST: Counters/Edit/5
+        // POST: Comments/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Title,Description,Date,CreatedBy,CreationDate")] Counter counter)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Body,CounterId,CreatedBy,CreationDate")] Comment comment)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(counter).State = EntityState.Modified;
+                db.Entry(comment).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(counter);
+            ViewBag.CounterId = new SelectList(db.Counters, "Id", "Title", comment.CounterId);
+            return View(comment);
         }
 
-        // GET: Counters/Delete/5
+        // GET: Comments/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Counter counter = await db.Counters.FindAsync(id);
-            if (counter == null)
+            Comment comment = await db.Comments.FindAsync(id);
+            if (comment == null)
             {
                 return HttpNotFound();
             }
-            return View(counter);
+            return View(comment);
         }
 
-        // POST: Counters/Delete/5
+        // POST: Comments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Counter counter = await db.Counters.FindAsync(id);
-            db.Counters.Remove(counter);
+            Comment comment = await db.Comments.FindAsync(id);
+            db.Comments.Remove(comment);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

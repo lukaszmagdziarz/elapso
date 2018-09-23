@@ -12,13 +12,22 @@ namespace ElapsoApp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Counter
+    public partial class Counter : ElapsoBaseClass
     {
-        public int Id { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Counter()
+        {
+            this.Comment = new HashSet<Comment>();
+            this.Reminder = new HashSet<Reminder>();
+        }
+    
         public string Title { get; set; }
         public string Description { get; set; }
-        public string Date { get; set; }
-        public string CreatedBy { get; set; }
-        public string CreationDate { get; set; }
+        public System.DateTime Date { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comment { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reminder> Reminder { get; set; }
     }
 }

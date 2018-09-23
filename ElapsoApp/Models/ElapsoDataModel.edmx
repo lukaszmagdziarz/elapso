@@ -6,52 +6,225 @@
     <edmx:StorageModels>
     <Schema Namespace="ElapsoDataModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="ElapsoDataModelStoreContainer">
-    <EntitySet Name="CounterSet" EntityType="ElapsoDataModel.Store.CounterSet" store:Type="Tables" Schema="Elapso" />
+    <EntitySet Name="ElapsoBaseClassSet" EntityType="ElapsoDataModel.Store.ElapsoBaseClassSet" store:Type="Tables" Schema="Elapso" />
+    <EntitySet Name="ElapsoBaseClassSet_Counter" EntityType="ElapsoDataModel.Store.ElapsoBaseClassSet_Counter" store:Type="Tables" Schema="Elapso" />
+    <EntitySet Name="ElapsoBaseClassSet_Comment" EntityType="ElapsoDataModel.Store.ElapsoBaseClassSet_Comment" store:Type="Tables" Schema="Elapso" />
+    <EntitySet Name="ElapsoBaseClassSet_Reminder" EntityType="ElapsoDataModel.Store.ElapsoBaseClassSet_Reminder" store:Type="Tables" Schema="Elapso" />
+    <AssociationSet Name="CounterComment" Association="ElapsoDataModel.Store.CounterComment">
+      <End Role="Counter" EntitySet="ElapsoBaseClassSet_Counter" />
+      <End Role="Comment" EntitySet="ElapsoBaseClassSet_Comment" />
+    </AssociationSet>
+    <AssociationSet Name="CounterReminder" Association="ElapsoDataModel.Store.CounterReminder">
+      <End Role="Counter" EntitySet="ElapsoBaseClassSet_Counter" />
+      <End Role="Reminder" EntitySet="ElapsoBaseClassSet_Reminder" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Counter_inherits_ElapsoBaseClass" Association="ElapsoDataModel.Store.FK_Counter_inherits_ElapsoBaseClass">
+      <End Role="ElapsoBaseClass" EntitySet="ElapsoBaseClassSet" />
+      <End Role="Counter" EntitySet="ElapsoBaseClassSet_Counter" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_inherits_ElapsoBaseClass" Association="ElapsoDataModel.Store.FK_Comment_inherits_ElapsoBaseClass">
+      <End Role="ElapsoBaseClass" EntitySet="ElapsoBaseClassSet" />
+      <End Role="Comment" EntitySet="ElapsoBaseClassSet_Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reminder_inherits_ElapsoBaseClass" Association="ElapsoDataModel.Store.FK_Reminder_inherits_ElapsoBaseClass">
+      <End Role="ElapsoBaseClass" EntitySet="ElapsoBaseClassSet" />
+      <End Role="Reminder" EntitySet="ElapsoBaseClassSet_Reminder" />
+    </AssociationSet>
   </EntityContainer>
-  <EntityType Name="CounterSet">
+  <EntityType Name="ElapsoBaseClassSet">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ElapsoBaseClassSet_Counter">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
     <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Date" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="CreatedBy" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="CreationDate" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="ElapsoBaseClassSet_Comment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CounterId" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ElapsoBaseClassSet_Reminder">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="CounterId" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="CounterComment">
+    <End Role="Counter" Type="ElapsoDataModel.Store.ElapsoBaseClassSet_Counter" Multiplicity="1" />
+    <End Role="Comment" Type="ElapsoDataModel.Store.ElapsoBaseClassSet_Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Counter">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="CounterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CounterReminder">
+    <End Role="Counter" Type="ElapsoDataModel.Store.ElapsoBaseClassSet_Counter" Multiplicity="1" />
+    <End Role="Reminder" Type="ElapsoDataModel.Store.ElapsoBaseClassSet_Reminder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Counter">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Reminder">
+        <PropertyRef Name="CounterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Counter_inherits_ElapsoBaseClass">
+    <End Role="ElapsoBaseClass" Type="ElapsoDataModel.Store.ElapsoBaseClassSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Counter" Type="ElapsoDataModel.Store.ElapsoBaseClassSet_Counter" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="ElapsoBaseClass">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Counter">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_inherits_ElapsoBaseClass">
+    <End Role="ElapsoBaseClass" Type="ElapsoDataModel.Store.ElapsoBaseClassSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Comment" Type="ElapsoDataModel.Store.ElapsoBaseClassSet_Comment" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="ElapsoBaseClass">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reminder_inherits_ElapsoBaseClass">
+    <End Role="ElapsoBaseClass" Type="ElapsoDataModel.Store.ElapsoBaseClassSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Reminder" Type="ElapsoDataModel.Store.ElapsoBaseClassSet_Reminder" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="ElapsoBaseClass">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Reminder">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ElapsoDataModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="ElapsoContext" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="CounterSet" EntityType="ElapsoDataModel.Counter" />
+          <EntitySet Name="ElapsoBaseClassSet" EntityType="ElapsoDataModel.ElapsoBaseClass" />
+          <AssociationSet Name="CounterComment" Association="ElapsoDataModel.CounterComment">
+            <End Role="Counter" EntitySet="ElapsoBaseClassSet" />
+            <End Role="Comment" EntitySet="ElapsoBaseClassSet" />
+          </AssociationSet>
+          <AssociationSet Name="CounterReminder" Association="ElapsoDataModel.CounterReminder">
+            <End Role="Counter" EntitySet="ElapsoBaseClassSet" />
+            <End Role="Reminder" EntitySet="ElapsoBaseClassSet" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Counter">
+        <EntityType Name="Counter" BaseType="ElapsoDataModel.ElapsoBaseClass">
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Comment" Relationship="ElapsoDataModel.CounterComment" FromRole="Counter" ToRole="Comment" />
+          <NavigationProperty Name="Reminder" Relationship="ElapsoDataModel.CounterReminder" FromRole="Counter" ToRole="Reminder" />
+        </EntityType>
+        <EntityType Name="ElapsoBaseClass">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" Nullable="false" />
-          <Property Name="Description" Type="String" Nullable="false" />
-          <Property Name="Date" Type="String" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" Nullable="false" />
-          <Property Name="CreationDate" Type="String" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" />
         </EntityType>
+        <EntityType Name="Comment" BaseType="ElapsoDataModel.ElapsoBaseClass">
+          <Property Name="Body" Type="String" Nullable="false" />
+          <NavigationProperty Name="Counter" Relationship="ElapsoDataModel.CounterComment" FromRole="Comment" ToRole="Counter" />
+          <Property Name="CounterId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="CounterComment">
+          <End Type="ElapsoDataModel.Counter" Role="Counter" Multiplicity="1" />
+          <End Type="ElapsoDataModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Counter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="CounterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Reminder" BaseType="ElapsoDataModel.ElapsoBaseClass">
+          <NavigationProperty Name="Counter" Relationship="ElapsoDataModel.CounterReminder" FromRole="Reminder" ToRole="Counter" />
+          <Property Name="CounterId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="CounterReminder">
+          <End Type="ElapsoDataModel.Counter" Role="Counter" Multiplicity="1" />
+          <End Type="ElapsoDataModel.Reminder" Role="Reminder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Counter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reminder">
+              <PropertyRef Name="CounterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ElapsoDataModelStoreContainer" CdmEntityContainer="ElapsoContext">
-    <EntitySetMapping Name="CounterSet">
+    <EntitySetMapping Name="ElapsoBaseClassSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ElapsoDataModel.ElapsoBaseClass)">
+        <MappingFragment StoreEntitySet="ElapsoBaseClassSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(ElapsoDataModel.Counter)">
-        <MappingFragment StoreEntitySet="CounterSet">
+        <MappingFragment StoreEntitySet="ElapsoBaseClassSet_Counter">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ElapsoDataModel.Comment)">
+        <MappingFragment StoreEntitySet="ElapsoBaseClassSet_Comment">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Body" ColumnName="Body" />
+          <ScalarProperty Name="CounterId" ColumnName="CounterId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ElapsoDataModel.Reminder)">
+        <MappingFragment StoreEntitySet="ElapsoBaseClassSet_Reminder">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CounterId" ColumnName="CounterId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
