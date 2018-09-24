@@ -54,22 +54,17 @@
     </dl>
 
     <h4>@Model.Comment.Count comments </h4>
-    <table class="table">
+
+    <table class="table" id="commentsList">
 
         <tr>
             <td colspan="4">
-                <div class="form-horizontal">
-                    <div class="form-group">
-                        <div class="col-md-10">
-
-                            <input type="text" id="body" name="body" placeholder="Enter your comment here..." class="form-control" />
-
-                            <div class="form-group">
-                                <button id="clear" type="reset" class="btn btn-default">Clear</button>
-                                <button id="addComment" type="submit" class="btn btn-danger">Add comment</button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="mb-3">
+                    <input type="text" id="body" name="body" placeholder="Enter your comment here..." class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <button id="clear" type="reset" class="btn btn-default">Clear</button>
+                    <button id="addComment" type="submit" class="btn btn-default">Add comment</button>
                 </div>
             </td>
         </tr>
@@ -91,9 +86,7 @@
                         @Html.DisplayFor(modelItem => comment.CreatedBy)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = comment.Id }) |
-                        @Html.ActionLink("Details", "Details", new { id = comment.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = comment.Id })
+                        <button id="deleteComment" onclick="javascript:deleteComment(@comment.Id)" type="submit" class="close"><span aria-hidden="true">&times;</span></button>
                     </td>
                 </tr>
             }
@@ -116,39 +109,52 @@
             return $.ajax({
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
-                type: 'POST',
-                url: "/Comments/Create",
+                type: 'PUT',
+                url: "/api/Comments",
                 data: data,
-                success: function (result) {
-                    alert(result);
+                success: function(/*result*/) {
                     location.reload();
                 },
-                error: function () {
+                error: function() {
                     console.log(data);
-                    alert("Error!")
                 }
             });
         }
+
         //Collect Multiple Order List For Pass To Controller
-        $("#addComment").click(function (e) {
+        $("#addComment").click(function(e) {
             e.preventDefault();
 
-            
 
             //Id,Body,CounterId,CreatedBy,CreationDate
             var data = JSON.stringify({
-                Id:100,
                 Body: $("#body").val(),
                 CounterId: @Model.Id,
                 CreatedBy: 1,
                 CreationDate: new Date().toJSON()
             });
 
-            $.when(addComment(data)).then(function (response) {
+            $.when(addComment(data)).then(function(response) {
                 console.log(response);
-            }).fail(function (err) {
+            }).fail(function(err) {
                 console.log(err);
             });
         });
+
+
+        function deleteComment(id) {
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'DELETE',
+                url: "/api/Comments/" + id,
+                success: function(/*result*/) {
+                    location.reload();
+                },
+                error: function() {
+                    console.log(data);
+                }
+            });
+        }
     </script>
 }
