@@ -1,0 +1,74 @@
+<div class="container">
+
+  <img src="{{ image }}">
+  
+    <div class="card">
+        <!-- <div class="card-header">
+          Firebase Cloud Storage & Angular 5
+        </div> -->
+        <div class="card-body">
+          <!-- <h5 class="card-title">Select a file for upload:</h5> -->
+          <div class="form-group">
+            <label>Select a file for upload:</label>
+            <input type="file" (change)="upload($event)" accept=".png,.jpg" class="form-control-file"/>
+          </div>
+            
+          <div class="form-group">
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="(uploadProgress | async) + '%'" [attr.aria-valuenow]="(uploadProgress | async)" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <br>
+            <div *ngIf="downloadURL; let downloadSrc" class="alert alert-info" role="alert">
+                File uploaded: <a [href]="downloadSrc">{{downloadSrc}}</a>
+            </div>
+            <br>
+            <div class="btn-group" role="group" *ngIf="uploadState | async; let state">
+                <button type="button" class="btn btn-primary" (click)="task.pause()" [disabled]="state === 'paused'">Pause</button>
+                <button type="button" class="btn btn-primary" (click)="task.cancel()" [disabled]="!(state === 'paused' || state === 'running')">Cancel</button>
+                <button type="button" class="btn btn-primary" (click)="task.resume()" [disabled]="state === 'running'">Resume</button>
+            </div>
+          </div>
+      <form (ngSubmit)="onSubmit(f)" #f="ngForm">      
+        <div class="form-group">
+          <label>Date:</label>
+          <input 
+            type="datetime" 
+            id="date" 
+            name="date"
+            class="form-control"
+            ngModel 
+            required
+            #date="ngModel">
+        </div>
+        <span class="help-block" *ngIf="!date.valid && date.touched">Please enter a valid date.</span>
+        <div class="form-group">
+          <label>Date:</label>
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            class="form-control"
+            ngModel
+            required
+            #name="ngModel">
+        </div>
+        <span class="help-block" *ngIf="!name.valid && name.touched">Please enter a valid name.</span>
+        <div class="form-group">
+          <label>Description:</label>
+          <textarea 
+            class="form-control" 
+            id="description"
+            name ="description"
+            ngModel
+            required
+            #description="ngModel"></textarea>
+        </div>
+        <span class="help-block" *ngIf="!description.valid && description.touched">Please enter a valid description.</span>
+        <button 
+          class="btn btn-primary" 
+          type="submit"
+          [disabled]="!f.valid">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

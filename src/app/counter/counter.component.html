@@ -1,0 +1,14 @@
+<div class="card mb-3">
+    <img class="card-img-top" src="{{ counter.imageUrl }}" alt="{{counter.name }}">
+    <div class="card-body">
+        <h5 class="card-title">{{ counter.name }}</h5>
+        <!-- <p class="card-text"> {{
+                (counter.elapsedTime.weeks > 0 ? counter.elapsedTime.weeks + ' weeks ' : '') + 
+                (counter.elapsedTime.days > 0 ? counter.elapsedTime.days + ' days ' : '') + 
+                (counter.elapsedTime.hours > 0 ? counter.elapsedTime.hours + ' hours ' : '') +
+                (counter.elapsedTime.minutes > 0 ? counter.elapsedTime.minutes + ' minutes ' : '') + 
+                (counter.elapsedTime.seconds > 0 ? counter.elapsedTime.seconds + ' seconds' : '') 
+            }}</p> -->
+        <p class="card-text"><small class="text-muted">{{counter.description }}</small></p>
+    </div>
+</div>

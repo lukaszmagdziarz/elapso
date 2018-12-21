@@ -1,0 +1,36 @@
+
+<!-- <div style="margin-top: 100px;" class="container">
+  <div class="row">
+    <div class="col">
+      <button class="btn btn-primary" (click)="onSaveLeafs()">Save Leafs</button>
+    </div>
+  </div>
+</div> -->
+
+
+
+<div class="container">
+  <h1>Tree - Order</h1>
+  <ul class="list-group">
+    <app-leaf *ngFor='let leaf of leafs' 
+      [leaf]=leaf 
+      [indent]=0 
+      (itemAdd)="onItemAdded($event)"
+      (itemRemove)="onItemRemoved($event)"></app-leaf>
+    
+    
+    
+    <li 
+      class="list-group-item list-group-item-action active">
+      <div class="row">
+        <div class="col-8">Total</div>
+
+        <div class="col" style="text-align:right">{{totalPrice}}</div>
+
+        <div class="col">
+          <button class="btn-sm btn-success">Order</button>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

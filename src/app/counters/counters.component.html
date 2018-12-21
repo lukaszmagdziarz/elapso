@@ -1,0 +1,19 @@
+<div class="container">
+  <h1>Counters</h1>
+ 
+  <!-- <div class="list-group"> -->
+    <!-- <p *ngFor="let c of counters">{{c | json}}</p> -->
+    <app-counter-list-item *ngFor="let c of counters" 
+      [counter]="c">
+    </app-counter-list-item>
+  <!-- </div> -->
+</div>
+
+
+<!-- <div class="container">
+  <div class="row">
+    <div class="col">
+      <button class="btn btn-primary" (click)="loadCounters()">Load</button>
+      <button class="btn btn-primary" (click)="saveCounters()">Save</button></div>
+  </div>
+</div> -->

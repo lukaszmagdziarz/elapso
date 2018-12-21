@@ -1,0 +1,39 @@
+<header>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a style="font-size:24px;" class="navbar-brand" [routerLink]="['']"><fa-icon [icon]="faLogo"></fa-icon></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/home']" routerLinkActive="active">
+            <fa-icon [icon]="faHome"></fa-icon>Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"  [routerLink]="['/link']" routerLinkActive="active">
+            <fa-icon [icon]="faLink"></fa-icon>Link</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"  [routerLink]="['/tree']" routerLinkActive="active">
+              <fa-icon [icon]="faTree"></fa-icon>Tree-Order</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"  [routerLink]="['/counters']" routerLinkActive="active">
+              <fa-icon [icon]="faTree"></fa-icon>Counters</a>
+          </li>
+      </ul>
+      <ul class="navbar-nav navbar-right">
+        <li class="nav-item"><a class="nav-link" [routerLink]="['/signup']" routerLinkActive="active" *ngIf="!authService.isAuthenticated()">
+          <fa-icon [icon]="faSignup"></fa-icon>Sign Up</a>
+        </li>
+        <li class="nav-item"><a class="nav-link" [routerLink]="['/signin']" routerLinkActive="active" *ngIf="!authService.isAuthenticated()">
+          <fa-icon [icon]="faLogin"></fa-icon>Login</a>
+        </li>
+        <li class="nav-item"><a class="nav-link" (click)="onLogout()" style="cursor:pointer" *ngIf="authService.isAuthenticated()">
+          <fa-icon [icon]="faLogout"></fa-icon>Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>

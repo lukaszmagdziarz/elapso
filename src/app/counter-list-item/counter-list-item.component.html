@@ -1,0 +1,27 @@
+<div class="card">
+    <img class="card-img-top" src="{{counter.imageThumbnailUrl}}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{counter.name}}</h5>
+      <small class="card-text">{{counter.description}}</small>
+      <hr/>
+      <small class="card-text">
+          {{ (elapsedTime.weeks > 0 ? elapsedTime.weeks + ' weeks ' : '')}} 
+          {{ (elapsedTime.days > 0 ? elapsedTime.days + ' days ' : '') }}   
+          {{ (elapsedTime.hours > 0 ? elapsedTime.hours + ' hours ' : '') }}
+          <br/>
+          {{ (elapsedTime.minutes > 0 ? elapsedTime.minutes + ' minutes ' : '') }} 
+          {{ (elapsedTime.seconds > 0 ? elapsedTime.seconds + ' seconds' : '') }}
+    </small>
+    <hr/>
+    
+<hr/>  
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+  <br /><share-buttons [theme]="'modern-dark'"
+      [include]="['facebook','twitter']"
+      [show]="5"
+      [showText]="true"
+      [url]="'https://elap.so/counters/' + counter.id"
+      [autoSetMeta]="false"
+    ></share-buttons>

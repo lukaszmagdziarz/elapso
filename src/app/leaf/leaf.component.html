@@ -1,0 +1,44 @@
+
+<li class="list-group-item list-group-item-action" (click)=onClick()>
+      
+
+      <div class="row">
+
+        <div class="col-1" *ngFor="let i of arraysService.numberToArray(indent)">
+          
+        </div>
+
+        <div class="col-1">
+            <fa-icon [icon]="faCollapsed" *ngIf="!isExpanded && leaf.leafs && leaf.leafs.length > 0"></fa-icon>
+            <fa-icon [icon]="faExpanded" *ngIf="isExpanded && leaf.leafs && leaf.leafs.length > 0"></fa-icon>
+        </div>
+      
+        <div class="col-1">
+          <div style="float:left;width:50px;height:50px;border:1px solid gray"></div>
+        </div>
+        <div class="col">
+          <p style="float:left" [ngClass]="{'font-weight-bold': leaf.leafs && leaf.leafs.length > 0}" >{{leaf.name}} <br/><small>{{leaf.description}}</small></p>
+        </div>
+         
+       
+        
+
+   
+
+        <div class="col-2 mx-auto" style="text-align: center"    *ngIf="!leaf.leafs || leaf.leafs.length <= 0">
+           
+          <p>{{ leaf.price }}&euro;</p>
+          <button *ngIf="!isAdded" class="btn-sm btn-success" (click)="onItemAdd(leaf)">Add</button>
+          <button *ngIf="isAdded" class="btn-sm btn-danger" (click)="onItemRemove(leaf)">Remove</button>
+        </div>
+      </div>
+    </li>
+
+<app-leaf *ngFor='let l of subLeafs' 
+  [leaf]=l 
+  [indent]=indent+1
+  (itemAdd)="onItemAdd($event)"
+  (itemRemove)="onItemRemove($event)"
+ ></app-leaf>
+  <!--  -->
+
